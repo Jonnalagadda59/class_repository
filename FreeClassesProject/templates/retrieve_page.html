@@ -1,0 +1,56 @@
+{% extends 'main_page.html' %}
+<html>
+<head>
+    <title>Classes Data</title>
+</head>
+<body>
+{% block content %}
+<style>
+
+    th,td{
+        padding: 10px 60px;
+        text-align: center;
+        color: #21fff2;
+    }
+
+    h1{
+        font-size: 40px;
+        color:floralwhite;
+        text-align: center;
+
+    }
+
+</style>
+
+{% if cdata %}
+<center>
+    <h1>Classes Available </h1>
+    <table align="center" border="2px" width="auto" style="color: #21fff2">
+        <thead>
+        <tr>
+            <th>Institution Name </th>
+            <th>Courses</th>
+            <th>Start_date</th>
+            <th>Venue</th>
+
+        </tr>
+        </thead>
+        {% for i in cdata %}
+        <tbody>
+        <tr>
+            <td>{{ i.instname }}</td>
+            <td>{{ i.course }}</td>
+            <td>{{ i.start_date }}</td>
+            <td>{{ i.venue }}</td>
+
+        </tr>
+        </tbody>
+        {% endfor %}
+    </table><br><br>
+</center>
+{% else %}
+<h1>Free Classes Not Available</h1>
+{% endif %}
+{% endblock %}
+</body>
+</html>

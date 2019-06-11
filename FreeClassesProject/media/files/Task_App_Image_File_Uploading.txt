@@ -1,0 +1,96 @@
+naresh.droid26@gmail.com
+
+
+Django REST API  with Images and Files Uploading concepts :
+======     =====    ======   =======     =======   ========
+cmd  > pip install  pillow    ---->> required
+
+project Name          :   TaskAPI  
+Application Name      :   TaskApp
+database name         :  task_db
+
+
+
+1 )  Create one model as  Task  with  some fields  like 
+
+      class Task(models.Model):
+                task_name      =   models.CharField(max_length=100)
+                task_desc        =   models.TextField(max_length=200)
+                comleted         =   models.BooleanField(default=False)
+                date_created  =   models.DateTimeField(auto_now=True)
+
+                image    =   models.ImageField(upload_to='Images/' , 
+                                                default='Images/no-img.jpg')
+              # set default image or blank image  to all fields if not adding manuvally.
+
+                 def __str__(self):
+                           return  "%s" % self.task_name
+
+              
+                 doc    =     models.FileField(upload_to='DOC/' ,  default = 'Doc/No-doc.pdf')          
+                                                   # use here any type of pre defined extention.
+
+
+
+Note :  
+=====
+1 ) Add the FileFiled  or  ImageField   to your  model,  defining the  "upload_to"  option to  specify     a  sub directory of  MEDIA_ROOT  to  use  for  uploaded files.   
+
+    Example   ,    media/Images/
+
+'default=.....'  ---->> this is the default value  for this field if we are not providing any data                         explicitly.
+
+
+
+2 ) Create a Folder  in Base  project  directory  to store MEDIA   data.
+          ex :   media  folder  ---->> all images  and  files storing here
+.
+
+3 ) Add MEDIA  Related  settings  (MEDIA_ROOT  and  MEDIA_URL)  in  settings.py file.
+
+       MEDIA_ROOT = os.path.join(BASE_DIR , 'media')
+       MEDIA_URL  =  '/media/'
+
+
+
+       STATICFILES_DIRS  =  (
+                  os.path.join(BASE_DIR , 'statc') ,  '/static/' , 
+        )
+
+
+
+4 )  Add some urls  in side urls.py in order to  handle the static , media  content.
+              
+             from django.conf.urls.static import static   
+              from djano.conf import  settings
+            
+                 urlpatterns = [
+                 .....
+                 ....
+                 ]  +  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+               
+
+
+5 )  serializers.py
+       =========   ===
+class TaskSerializer(srializers.ModelSerializer):
+       class  Meta :
+             model  = Task
+             fields  =  ['id' , 'task_name' , 'task_desc',  'completed' , 'date_created' ,   'image' ,  'doc'] 
+
+
+
+
+
+
+
+DefaultRouter()
+========
+This router is similar to SimpleRouter()  but additionally includes a default API root view, that returns a response containing hyperlinks to all the list views. It also generates routes for optional .json style format suffixes.
+
+For multiple  router urls  use  SimpleRouter  class. It returns all urls as a Normal  urls on browser. If you are using DefaultRouter  class then only latest  url overrides  old urls ,  so   only one action executing for all urls.
+
+
+
+
+

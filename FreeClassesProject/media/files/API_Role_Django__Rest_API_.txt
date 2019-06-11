@@ -1,0 +1,68 @@
+API Role :
+=======
+In Django , we developed some projects like Curd operation projects and Hyd jobs Info .
+
+I want to use this application from my mobile app. Then you are saying sorry  I am not having any API to get jobs data of hyd. 
+
+Then immediatly this mobile appln user can choose another django appln.
+
+java appln  person coming , asking I want your hyd jobs data to use in my java app. Can you please provide ? do you have any API ?
+
+Then you are telling sorry man , I dont have any API for my Appln. If you want to see my Jobs Information , then open a browser and send a request to my appln  then now I want to display only Hyd jobs info for you.
+
+So 3rd party persions can not use Your Applications (API's.) So your app is not getting the more Popularity.
+
+I want to provide API's for this web applications . so that applications can be used by all the 3rd party applications.
+
+How I can do that ?
+  =====   =======
+For our Django applcation purpose ,we have models.py , views.py ,  urls.py  , .... we are using. So dont touch application files for  your API's developing.
+
+In your django project, inside settings.py file ,  we add  "rest_framework" app.  
+
+Inside  our appln name  create one separate folder as   "api".
+
+Inside this "api" ,your API's related all files you need to store. 
+
+For API's ,  views.py , urls.py and  serializers.py file we are using. But models.py file  already we created in our appln. so no need of models.py separately.
+
+serializers.py
+==========
+from rest_framework.serializers import ModelSerializer
+from testapp.models import Emp
+
+class EmpSerializer(ModelSerializer):
+    class Meta:
+        model = Emp
+        fields = '__all__'
+
+
+view.py
+=====
+from rest_framework import viewsets
+from testapp.models import Emp
+from testapp.api.serializers import EmpSerializer
+
+class Rest_EmpViewSet(viewsets.ModelViewSet):
+    queryset = Emp.objects.all()
+    serializer_class = EmpSerializer
+
+
+urls.py
+======
+
+from django.conf.urls import url,include
+from testapp.api import views
+
+from rest_framework import routers
+router = routers.DefaultRouter()
+router.register('emp',views.Rest_EmpViewSet)
+
+urlpatterns = [
+    url(r'',include(router.urls)),
+]
+
+Provide this above urls.py  file to project urls.py   like  
+url(r'^api/', include('testapp.api.urls')),
+
+

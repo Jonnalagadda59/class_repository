@@ -1,0 +1,44 @@
+{% extends 'main_page.html' %}
+<html>
+<head>
+    <title>Feedback Form</title>
+</head>
+<body>
+{% block content %}
+<div class="container">
+<div class="row">
+    <div class="offset-md-3 col-md-5">
+        {% if fdata %}
+            <center><h1 style="color:green">Feedback Form</h1></center>
+            {% endif %}
+            {% if fdata %}
+            {% for i in fdata %}
+
+              <b style=" font-size:25px;color:paleturquoise;font-family:'Times New Roman'" >
+              Institution Name:{{ i.instname|capfirst }}</b><br>
+              Faculty:{{ i.faculty|capfirst }}<br>
+              Rating:{{ i.rating }}<br>
+              Date:{{ i.date }}<br>
+        Feedback:{{ i.feedback }}<br><br>
+
+        {% endfor %}
+        {% else %}
+        <h1>No Feedbacks are Available</h1>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <center><h3>Enter Your FeedbackForm</h3></center>
+            {{ fform }} <br>
+            <center>
+                <input type="submit" value="send" class="btn btn-success">
+                <input type="reset" value="clear" class="btn btn-danger">
+            </center>
+
+        </form>
+    </div>
+</div>
+
+</div>
+{% endblock %}
+</body>
+</html>

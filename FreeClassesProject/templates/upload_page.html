@@ -1,0 +1,40 @@
+{% extends 'main_page.html' %}
+<html>
+<head>
+    <title>Feedback Form</title>
+</head>
+<body>
+{% block content %}
+<div class="container">
+<div class="row">
+    <div class="offset-md-3 col-md-5">
+        {% if ddata %}
+            <center><h1 style="color:green">Documents Form</h1></center>
+            {% endif %}
+            {% if ddata %}
+            {% for i in ddata %}
+             <li><a href="{{ i.files.url }}">{{ i.files.name }}</a></li>
+              <b style=" font-size:25px;color:paleturquoise;font-family:'Times New Roman'" >
+              Subject:{{ i.subject|capfirst }}</b><br>
+              Files:{{ i.files }}<br><br>
+
+        {% endfor %}
+        {% else %}
+        <h1>No Messages are Available</h1>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <center><h3>Send Your Document</h3></center>
+            {{ dform }} <br>
+            <center>
+                <input type="submit" value="Upload" class="btn btn-success">
+            </center>
+
+        </form>
+    </div>
+</div>
+
+</div>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% extends 'main_page.html' %}
+<html>
+<head>
+    <title>Messages</title>
+</head>
+<body>
+{% block content %}
+<div class="container">
+<div class="row">
+    <div class="offset-md-3 col-md-5">
+            {% if mdata %}
+            <center><h1 style="color:green">Messages</h1></center>
+            {% endif %}
+            {% if mdata %}
+             {% for i in mdata %}
+              <b style=" font-size:25px;color:paleturquoise;font-family:'Times New Roman'" >
+               Name:{{ i.name|capfirst }}</b><br>
+              Date:{{ i.date }}<br>
+        Message:{{ i.message }}<br><br>
+        {% endfor %}
+        {% else %}
+        <h1>No Messages are Available</h1>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <center><h3>Enter Your Message</h3></center>
+            {{ mform }} <br>
+            <center>
+                <input type="submit" value="send" class="btn btn-success">
+                <input type="reset" value="clear" class="btn btn-danger">
+            </center>
+
+        </form>
+    </div>
+</div>
+
+</div>
+{% endblock %}
+</body>
+</html>

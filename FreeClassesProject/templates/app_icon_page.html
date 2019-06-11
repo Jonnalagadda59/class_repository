@@ -1,0 +1,25 @@
+{% extends 'main_page.html' %}
+{% load staticfiles %}
+<html>
+<head>
+    <title>Team Page</title>
+</head>
+<body>
+{% block content %}
+<div class="container">
+<div class="team">
+    <h1>App Icon</h1>
+    <span class="sp1"></span>
+    <div class="pics">
+        <a href="#p1"><img src="{% static 'images/srij (3).jpg' %}"></a>
+    </div>
+<div class="section" id="p1">
+    <h1 class="name">Srikanth</h1>
+    <span class="sp1"></span>
+    <center><p>I worked on innovative and challenging job to expose my talent and prove my ability to undertake job responsibilities and strive for the success of an organization. </p></center>
+</div>
+{% endblock %}
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends 'main_page.html' %}
+<html>
+<head>
+</head>
+
+<body style="background-color:aquamarine">
+{% block content %}
+    <style>
+    ul{
+        list-style-type: none;
+    }
+    h1{
+    }
+</style>
+<div class="container">
+<div class="row">
+    <div class="offset-md-3 col-md-4">
+        <center><h1 style="color:greenyellow">Please Fill this Form</h1></center>
+        <form method="POST">
+            {% csrf_token %}
+            {{cform}}<br>
+            <center>
+            <input type="submit" value="submit" class="btn btn-success">
+            <input type="reset" value="Clear" class="btn btn-danger">
+                </center>
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}
+</body>
+</html>
